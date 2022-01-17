@@ -1,10 +1,14 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_smart_gym/model/SignupUser.dart';
 
 class SignUpProvider extends ChangeNotifier{
+
   String confirmPassword = "";
 
+
   SignUpUser signUpUser = SignUpUser();
+
 
   void onSaveUsername(String? value){
     signUpUser.email = value ?? "";
@@ -12,6 +16,7 @@ class SignUpProvider extends ChangeNotifier{
 
   void onSavedPassword  (String? value) {
     signUpUser.password = value ?? "";
+    // print (password);
   }
 
   void onSaveConfirmPassword(String? value){

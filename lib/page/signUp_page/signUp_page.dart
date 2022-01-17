@@ -4,7 +4,6 @@ import 'package:flutter_smart_gym/page/signUp_page/sign-up_provider.dart';
 import 'package:flutter_smart_gym/widget/double_line.dart';
 import 'package:flutter_smart_gym/widget/form_button.dart';
 import 'package:flutter_smart_gym/widget/input_field.dart';
-import 'package:flutter_smart_gym/widget/inputfield_suffixicon_widget.dart';
 import 'package:flutter_smart_gym/widget/social_icon.dart';
 
 import 'package:flutter_smart_gym/page/signIn_page/sign_in_page.dart';
@@ -40,7 +39,7 @@ class HomePageWidget extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: Padding(
-          padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
+          padding: EdgeInsets.fromLTRB(36, 0, 36, 0),
           child: ListView(
             children: [
               Column(
@@ -48,8 +47,8 @@ class HomePageWidget extends StatelessWidget {
                   Column(
                     children: [
                       IconButton(onPressed:(){
-                        Navigator.of(context).pop();
-                      }, icon: Icon(Icons.arrow_back), iconSize: 44,),
+                        print("BackButton Click");
+                      }, icon: const Icon(Icons.arrow_back), iconSize: 44,),
                       // SizedBox(height: 10,),
                       Image.asset("assets/images/logo.png",height: size.height * 0.10,),
                     ],
@@ -73,14 +72,14 @@ class HomePageWidget extends StatelessWidget {
                     ),
                   ),
                   // const SizedBox(height: 6,),
-                  DoubleLine(),
+                  const DoubleLine(),
                   // const SizedBox(height: 6,),
                   Row(
                     children:  [
-                      Text("Register with socials",style:  registerHeadingStyle,),
+                      Text("Register with email",style:  registerHeadingStyle,),
                     ],
                   ),
-                  const SizedBox(height: 15,),
+                  const SizedBox(height: 12,),
                   Form(
                     key: _formKey,
                     autovalidateMode: AutovalidateMode.always,
@@ -88,33 +87,36 @@ class HomePageWidget extends StatelessWidget {
                       children: [
                         InputFieldWidget(
                           initialValue: signUpProvider.signUpUser.email ?? "Email@gmail.com",
-                          // hintText: "Email@gmail.com",
+                          hintText: "Email@gmail.com",
+                          textInputType: TextInputType.emailAddress,
                           labelText: "Email",
                           validate:signUpProvider.validateUsername,
                           onSaved: signUpProvider.onSaveUsername,
                           prefixIcon: const Icon(Icons.person,color: lightBlue,),
+
                         ),
-                        const SizedBox(height: 20,),
-                        InputFieldSuffixIcon(
+                        const SizedBox(height: 18,),
+                        InputFieldWidget(
                           initialValue: signUpProvider.signUpUser.password ?? "12345678",
                           labelText: "password",
+                          isPassword: true,
                           prefixIcon: const Icon(Icons.https,color: lightBlue,),
                           validate:signUpProvider.validatePassword,
                           onSaved: signUpProvider.onSavedPassword,
                           onChanged:signUpProvider.onChancedPassword ,
-                        ),const SizedBox(height: 20,),
-                        InputFieldSuffixIcon(
+                        ),const SizedBox(height: 15,),
+                        InputFieldWidget(
                           initialValue: "12345678",
+                          isPassword: true,
                           labelText: "Confirm password",
                           prefixIcon: const Icon(Icons.https,color: lightBlue,),
                           validate:signUpProvider.validateConfirmPassword,
                           onChanged: signUpProvider.onChangedConfirmPassword,
                           onSaved:signUpProvider.onSaveConfirmPassword,
                         ),
-                        const SizedBox(height: 10,),
+                        const SizedBox(height: 7,),
                         RichText(
                           text: TextSpan(
-                            style: TextStyle(fontSize: 16,),
                             children:  <TextSpan>[
                               TextSpan(text: ' Bt creating an account I accept the ',style: privacyHeadingStyle),
                               TextSpan(text: 'Terms & Conditions', style: privacyHeadingStyle.copyWith(color: Colors.blue)),
@@ -131,21 +133,21 @@ class HomePageWidget extends StatelessWidget {
                               _formKey.currentState!.save();
                               signUpProvider.onSubmit();
                               ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(content: Text("VaLIDATION PASSED")),);
+                                  const SnackBar(content: Text("VaLIDATION PASSED")));
                               Navigator.of(context).push(MaterialPageRoute(builder: (context)=>LoginPage()));
                             }else{
                               signUpProvider.onSubmit();
                               ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(content: Text("VALIDATION ERROR")));
+                                  const SnackBar(content: Text("VALIDATION ERROR")));
                             }
                           },
-                          padding:EdgeInsets.symmetric(vertical: 15) ,
-                          bgcolor: Colors.deepOrange.withOpacity(0.7), color: Colors.white,
+                          padding:const EdgeInsets.symmetric(vertical: 14) ,
+                          bgcolor: lightBlue, color: Colors.white,
                           width: double.infinity, textButton: 'Join Us',),
                       ],
                     ),
                   ),
-                  const SizedBox(height: 10,),
+                  const SizedBox(height: 15),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -154,9 +156,8 @@ class HomePageWidget extends StatelessWidget {
                       ),
                       const SizedBox(width: 3,),
                       InkWell(
-                        // onTap: onTab,
                         onTap: (){
-                          // Navigator.of(context).push(MaterialPageRoute(builder: (context)=>()));
+                          Navigator.of(context).push(MaterialPageRoute(builder: (context)=>LoginPage()));
                         },
                         child:  Text("Sign in",
                           style: memberHeadingStyle.copyWith(color: Colors.blue),
@@ -173,3 +174,5 @@ class HomePageWidget extends StatelessWidget {
     );
   }
 }
+
+

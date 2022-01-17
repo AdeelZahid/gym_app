@@ -35,7 +35,7 @@ class _FormButtonState extends State<FormButton> {
           color: widget.bgcolor,
           borderRadius: BorderRadius.circular(10),
         ),
-        child: Center(child: Text(widget.textButton,style: TextStyle(fontSize:widget.size ?? 20,fontWeight: FontWeight.bold,color: widget.color))),
+        child: Center(child: Text(widget.textButton,style: TextStyle(fontSize:widget.size ?? 20,fontWeight: FontWeight.w400,color: widget.color,fontFamily: "Poppins"))),
       ),
     );
   }

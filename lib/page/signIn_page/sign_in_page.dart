@@ -5,10 +5,8 @@ import 'package:flutter_smart_gym/page/signUp_page/signUp_page.dart';
 import 'package:flutter_smart_gym/widget/double_line.dart';
 import 'package:flutter_smart_gym/widget/form_button.dart';
 import 'package:flutter_smart_gym/widget/input_field.dart';
-import 'package:flutter_smart_gym/widget/inputfield_suffixicon_widget.dart';
 import 'package:flutter_smart_gym/widget/social_icon.dart';
 import 'package:provider/provider.dart';
-
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -46,7 +44,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: Padding(
-          padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
+          padding: EdgeInsets.fromLTRB(36, 0, 36, 0),
           child: ListView(
             children: [
               Column(
@@ -54,7 +52,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                   Column(
                     children: [
                       IconButton(onPressed:(){
-                        Navigator.of(context).pop();
+                        print("Button Click");
                       }, icon: Icon(Icons.arrow_back), iconSize: 44,),
                       SizedBox(height: 10,),
                       Image.asset("assets/images/logo.png",height: size.height * 0.10,),
@@ -95,13 +93,15 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                         InputFieldWidget(
                           initialValue: signInProvider.user.email ?? "Email@gmail.com",
                           // hintText: "Email@gmail.com",
+                          textInputType: TextInputType.emailAddress,
                           labelText: "Email",
                           validate:signInProvider.validateUsername,
                           onSaved: signInProvider.onSaveUsername,
                           prefixIcon: const Icon(Icons.person,color: lightBlue,),
                         ),
-                        const SizedBox(height: 20,),
-                        InputFieldSuffixIcon(
+                        const SizedBox(height: 17,),
+                        InputFieldWidget(
+                          isPassword: true,
                           initialValue: signInProvider.user.password ?? "12345678",
                           labelText: "password",
                           prefixIcon: const Icon(Icons.https,color: lightBlue,),
@@ -109,26 +109,15 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                           onSaved: signInProvider.onSavedPassword,
                           onChanged:signInProvider.onChancedPassword ,
                         ),
-                        const SizedBox(height: 5,),
+                        const SizedBox(height: 3,),
                         Row(
                           children: [
-
-                            // Checkbox(
-                            //     value: remember,
-                            //     activeColor: kPrimaryColor,
-                            //     onChanged: (bool? value){
-                            //       setState(() {
-                            //         remember = value!;
-                            //         print(remember);
-                            //       });
-                            //     }
-                            // ),
                             Expanded(
-                              flex:2,
+                              // flex:1,
                               child: CheckboxListTile(
                                 contentPadding: EdgeInsets.only(left: 0),
                                   controlAffinity: ListTileControlAffinity.leading,
-                                title: Text("Remember me",),
+                                title: Text("Remember me",style: forgetPassword),
                                   value: checkboxIndex,
                                   onChanged: (bool? value){
                                   setState(() {
@@ -139,55 +128,58 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                             ),
 
                             Expanded(
+                              // flex: 1,
                               child: GestureDetector(
                                 onTap: (){
                                   // Navigator.of(context).push(MaterialPageRoute(builder: (context)=>const CheckImg()));
                                 },
-                                child: const Text("Forgot Password",style: TextStyle(decoration: TextDecoration.underline),textAlign: TextAlign.right,),
+                                child:  Text("Forgot Password",style: forgetPassword.copyWith(decoration: TextDecoration.underline, ),textAlign: TextAlign.right,),
                               ),
                             ),
                           ],
                         ),
                         FormButton(
-
                           onTap: (){
                             if(_formKey.currentState!.validate()){
                               _formKey.currentState!.save();
                               signInProvider.onSubmit();
                               ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(content: Text("VALIDATION PASSED"))
+                                  SnackBar(content: const Text("VaLIDATION PASSED"))
                               );
+                              Navigator.of(context).push(MaterialPageRoute(builder: (context)=>const SignUpPage()));
                             }else{
                               ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(content: Text("VALIDATION ERROR")));
                             }
-                            // Navigator.of(context).push(MaterialPageRoute(builder: (context)=>const AnyNamepage()));
+
                           },
                           padding:EdgeInsets.symmetric(vertical: 15) ,
-                          bgcolor: Colors.deepOrange.withOpacity(0.7), color: Colors.white,
+                          bgcolor: lightBlue.withOpacity(0.7), color: Colors.white,
                           width: double.infinity, textButton: 'Join Us',),
                       ],
                     ),
                   ),
-                  SizedBox(height: 60,),
+                  const SizedBox(height: 50,),
                   // Spacer(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text("Not a member?",
-                        style: memberHeadingStyle,
-                      ),
-                      SizedBox(width: 3,),
-                      InkWell(
-                        // onTap: onTab,
-                        onTap: (){
-                          Navigator.of(context).push(MaterialPageRoute(builder: (context)=> SignUpPage()));
-                        },
-                        child:  Text("Sign up here",
-                          style: memberHeadingStyle.copyWith(color: Colors.blue),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 10.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("Not a member?",
+                          style: memberHeadingStyle,
                         ),
-                      ),
-                    ],
+                        const SizedBox(width: 3,),
+                        InkWell(
+                          onTap: (){
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context)=>const SignUpPage()));
+                          },
+                          child:  Text("Sign up here",
+                            style: memberHeadingStyle.copyWith(color: Colors.blue),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),

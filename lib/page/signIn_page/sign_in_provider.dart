@@ -1,17 +1,10 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_smart_gym/model/User.dart';
 import 'package:flutter_smart_gym/model/checkbox.dart';
 
-
-
 class SignInProvider extends ChangeNotifier{
 
-  /// form start
-  // String userEmail = "";
-  // String password = "";
-  /// form End
-  /// Form provider Start
+
   bool remember = false;
 
   User user = User();
@@ -22,9 +15,7 @@ class SignInProvider extends ChangeNotifier{
 
   void onSavedPassword  (String? value) {
     user.password = value ?? "";
-    // print (password);
   }
-
 
   void onChancedPassword  (String value) {
     user.password = value;

@@ -18,7 +18,7 @@ class DoubleLine extends StatelessWidget {
           ),
           const Padding(
             padding: EdgeInsets.only(left: 20,right: 20,),
-            child: Text("or",style: TextStyle(fontSize: 19,color: Colors.grey),),
+            child: Text("or",style: TextStyle(fontSize: 19,color: Colors.black38),),
           ),
 
           Expanded(child: Container(
